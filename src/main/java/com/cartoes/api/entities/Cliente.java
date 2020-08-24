@@ -8,10 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
@@ -37,7 +37,7 @@ public class Cliente implements Serializable {
  @JsonManagedReference
  @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
  private List<Cartao> cartoes;
-
+ 
  public int getId() {
  return id;
  }
@@ -68,4 +68,12 @@ public class Cliente implements Serializable {
  public void setUf(String uf) {
  this.uf = uf;
  }
+ 
+ public void preUpdate() {
+	 dataAtualizacao = new Date();
+	 }
+	 @PrePersist
+	 public void prePersist() {
+	 dataAtualizacao = new Date();
+	 }
 }

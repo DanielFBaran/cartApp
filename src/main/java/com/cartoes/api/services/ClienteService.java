@@ -45,7 +45,7 @@ public class ClienteService {
 
 	public Cliente salvar(Cliente cliente) throws ConsistenciaException {
 
-		 log.info("Service: salvando o cliente: {}", cliente);
+log.info("Service: salvando o cliente: {}", cliente);
 
 		 if (cliente.getId() > 0)
 		 buscarPorId(cliente.getId());
