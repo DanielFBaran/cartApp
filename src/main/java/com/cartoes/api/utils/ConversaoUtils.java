@@ -7,6 +7,8 @@ import com.cartoes.api.dtos.CartaoDto;
 import com.cartoes.api.dtos.ClienteDto;
 import com.cartoes.api.entities.Cartao;
 import com.cartoes.api.entities.Cliente;
+import com.cartoes.api.entities.Transacao;
+import com.cartoes.api.dtos.TransacaoDto;
 public class ConversaoUtils {
  public static Cartao Converter(CartaoDto cartaoDto) throws ParseException {
  Cartao cartao = new Cartao();

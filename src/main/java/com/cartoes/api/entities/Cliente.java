@@ -69,6 +69,7 @@ public class Cliente implements Serializable {
  this.uf = uf;
  }
  
+ @PreUpdate
  public void preUpdate() {
 	 dataAtualizacao = new Date();
 	 }
