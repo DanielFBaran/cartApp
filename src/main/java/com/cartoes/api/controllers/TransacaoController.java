@@ -26,19 +26,18 @@ import com.cartoes.api.response.Response;
 @RequestMapping("/api/transacao")
 @CrossOrigin(origins = "*")
 public class TransacaoController {
+	private static final Logger log = LoggerFactory.getLogger(TransacaoController.class);
 	@Autowired
 	 private TransacaoService transacaoService;
 	
-	private static final Logger log = LoggerFactory.getLogger(TransacaoController.class);
-	
 	@GetMapping(value = "/cartao/{cartaoNumero}")
-	public ResponseEntity<Response<List<Transacao>>>
+	public ResponseEntity<Response<List<TransacaoDto>>>
 	buscarPorNumeroCartao(@PathVariable("cartaoNumero") String cartaoNumero) {
-		Response<List<Transacao>> response = new Response<List<Transacao>>();
+		Response<List<TransacaoDto>> response = new Response<List<TransacaoDto>>();
 		try {
 			 log.info("Controller: buscando transacoes do cartao de numero: {}", cartaoNumero);
 			 Optional<List<Transacao>> listaTransacoes = transacaoService.buscarPorNumeroCartao(cartaoNumero);
-			 response.setDados(listaTransacoes.get());
+			 response.setDados(ConversaoUtils.ConverterListaTransacao(listaTransacoes.get()));
 			 return ResponseEntity.ok(response);
 	} catch (ConsistenciaException e) {
 		log.info("Controller: Inconsistencia de dados: {}" , e.getMessage());
@@ -52,12 +51,13 @@ public class TransacaoController {
 	}
 }
 	@PostMapping
-	 public ResponseEntity<Response<Transacao>> salvar(@RequestBody Transacao transacao) {
-		Response<Transacao> response = new Response<Transacao>();
+	 public ResponseEntity<Response<TransacaoDto>> salvar(@RequestBody TransacaoDto transDto) {
+		Response<TransacaoDto> response = new Response<TransacaoDto>();
 		try {
-			 log.info("Controller: salvando a transacao: {}", transacao.toString());
-
-			 response.setDados(this.transacaoService.salvar(transacao));
+			 log.info("Controller: salvando a transacao: {}", transDto.toString());
+			 
+			 Transacao trans = this.transacaoService.salvar(ConversaoUtils.Converter(transDto));
+			 response.setDados(ConversaoUtils.Converter(trans));
 			 return ResponseEntity.ok(response);
 			 } catch (ConsistenciaException e) {
 			 log.info("Controller: Inconsistência de dados: {}", e.getMessage());

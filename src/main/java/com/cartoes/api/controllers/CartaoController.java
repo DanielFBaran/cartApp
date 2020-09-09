@@ -23,6 +23,7 @@ import com.cartoes.api.services.CartaoService;
 import com.cartoes.api.utils.ConsistenciaException;
 import com.cartoes.api.utils.ConversaoUtils;
 import com.cartoes.api.response.Response;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 
 @RestController
@@ -45,7 +46,7 @@ public class CartaoController {
 		try {
 			log.info("Controller: buscando cartões do cliente de ID: {}", clienteId);
 			Optional<List<Cartao>> listaCartoes = cartaoService.buscarPorClienteId(clienteId);
-			response.setDados(ConversaoUtils.ConverterLista(listaCartoes.get()));
+			response.setDados(ConversaoUtils.ConverterListaCartao(listaCartoes.get()));
 			 return ResponseEntity.ok(response);
 		} catch (ConsistenciaException e) {
 			log.info("Controller: Inconsistência de dados: {}", e.getMessage());
@@ -101,6 +102,7 @@ public class CartaoController {
 	 * @return Sucesso/erro
 	 */
 	 @DeleteMapping(value = "excluir/{id}")
+	 @PreAuthorize("hasAnyRole('EXCLUSAO')")
 	 public ResponseEntity<Response<String>> excluirPorId(@PathVariable("id") int id){
 		 Response<String> response = new Response<String>();
 	 try {

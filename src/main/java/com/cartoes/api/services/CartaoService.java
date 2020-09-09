@@ -11,6 +11,8 @@ import com.cartoes.api.entities.Cartao;
 import com.cartoes.api.repositories.CartaoRepository;
 import com.cartoes.api.repositories.ClienteRepository;
 import com.cartoes.api.utils.ConsistenciaException;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 
 @Service
 public class CartaoService {
@@ -28,7 +30,7 @@ public class CartaoService {
 		 }
 		 return cartao;
 		 }
-
+ @Cacheable("cacheCartaoesPorCliente")
 public Optional<List<Cartao>> buscarPorClienteId(int clienteId) throws
  ConsistenciaException {
   log.info("Service: buscando os cartoes do cliente de id: {}", clienteId);
@@ -41,6 +43,7 @@ public Optional<List<Cartao>> buscarPorClienteId(int clienteId) throws
 	  }
 	  return cartoes;
 	  }
+ @CachePut("cacheCartaoesPorCliente")
 public Cartao salvar(Cartao cartao) throws ConsistenciaException {
 	 log.info("Service: salvando o cartao: {}", cartao);
 	 if (!clienteRepository.findById(cartao.getCliente().getId()).isPresent()) {
@@ -58,6 +61,7 @@ public Cartao salvar(Cartao cartao) throws ConsistenciaException {
 
 					  }
 }
+ @CachePut("cacheCartaoesPorCliente")
 public void excluirPorId(int id) throws ConsistenciaException {
 	 log.info("Service: excluíndo o cartão de id: {}", id);
 	 buscarPorId(id);
