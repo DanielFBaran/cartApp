@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @ActiveProfiles("test")
 class CartoesApplicationTests {
 	
-    @Test
-	void contextLoads() {
-	}
+//    @Test
+//	void contextLoads() {
+//	}
 
 }
