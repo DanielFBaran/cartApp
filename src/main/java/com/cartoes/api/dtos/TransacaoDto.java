@@ -1,5 +1,7 @@
 package com.cartoes.api.dtos;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
@@ -7,6 +9,7 @@ public class TransacaoDto {
 	private String id;
 	@NotEmpty(message = "CNPJ não pode estar vazio. ")
 	@Length(min = 14, max = 14, message = "CNPJ deve conter 14 caracteres. ")
+	private String dataTransacao;
 	private String cnpj;
 	@NotEmpty(message = "O valor não pode estar vazio. ")
 	@Length(min = 1, max = 10, message = "O valor deve conter 1 a 10 caracteres. ")
@@ -23,6 +26,14 @@ public class TransacaoDto {
 
 		 public void setId(String id) {
 		 this.id = id;
+		 }
+		 
+		 public String getDataTransacao() {
+			 return dataTransacao;
+		 }
+		 
+		 public void setDataTransacao(String dataTransacao) {
+			 this.dataTransacao = dataTransacao;
 		 }
 
 		 public String getCnpj() {
@@ -62,6 +73,7 @@ public class TransacaoDto {
 		 @Override
 		 public String toString() {
 			 return "Transacao[" + "id=" + id + ","
+			 + "dataTransacao=" + dataTransacao + ","
 			 + "cnpj=" + cnpj + ","
 			 + "valor=" + valor + ","
 			 + "qtdParcelas=" + qtdParcelas + ","

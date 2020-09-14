@@ -19,6 +19,7 @@ public static Transacao Converter(TransacaoDto transDto) throws ParseException {
 	Transacao trans = new Transacao();
 	if (transDto.getId() != null && transDto.getId() != "")
 		trans.setId(Integer.parseInt(transDto.getId()));
+	    trans.setDataTransacao(new SimpleDateFormat("dd/MM/yyyy").parse(transDto.getDataTransacao()));
 		trans.setCnpj(transDto.getCnpj());
 		trans.setValor(Double.parseDouble(transDto.getValor()));
 		trans.setQtdParcelas(Integer.parseInt(transDto.getQtdParcelas()));
