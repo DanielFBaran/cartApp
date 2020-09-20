@@ -1,2 +1,0 @@
-ALTER TABLE `Usuario`
-ADD COLUMN `ultimo_Acesso` DATETIME NOT NULL;

@@ -4,6 +4,7 @@ CREATE TABLE `Usuario` (
   `cpf` CHAR(11) NOT NULL,
   `senha` VARCHAR(100) NOT NULL,
   `ativo` BIT NOT NULL,
+  `ultimo_Acesso` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `usuario_cpf_UNIQUE` (`cpf` ASC))
 ENGINE = InnoDB;
