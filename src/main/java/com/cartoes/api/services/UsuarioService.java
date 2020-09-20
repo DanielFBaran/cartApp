@@ -1,6 +1,7 @@
 package com.cartoes.api.services;
  
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
  
 import com.cartoes.api.entities.Regras;
@@ -171,6 +173,16 @@ public class UsuarioService {
  
           	usuarioRepository.alterarSenhaUsuario(SenhaUtils.gerarHash(novaSenha), id);
  
+   	}
+   	public void atualizarUltimoAcesso(String username) {
+   		Date novoAcesso = new Date();
+   		usuarioRepository.atualizarUltimoAcesso(novoAcesso, username);
+   	}
+   	
+   	@Scheduled(fixedRate = 43200000)
+   	public void bloquearUsuarioInativo() {
+   		usuarioRepository.bloquearUsuarioInativo();
+   		log.info("Service: Desativando usuarios que estao inativos por mais de 30 dias");
    	}
  
 }

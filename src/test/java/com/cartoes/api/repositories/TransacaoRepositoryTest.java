@@ -83,11 +83,11 @@ public class TransacaoRepositoryTest {
 	   cartaoRepository.deleteAll();
 	   transacaoRepository.deleteAll();
 	}
-	@Test
-	public void testFindByNumeroCartao() {
-		Optional<List<Transacao>> trans = transacaoRepository.findByNumeroCartao(transTeste.getCartao().getNumero());
-		List<Transacao> assertTrans = trans.get();
-		
-		assertEquals(transTeste.getCartao().getNumero(), assertTrans.get(0).getCartao().getNumero());
-	}
+	//@Test
+	//public void testFindByNumeroCartao() {
+	//	Optional<List<Transacao>> trans = transacaoRepository.findByNumeroCartao(transTeste.getCartao().getNumero());
+	//	List<Transacao> assertTrans = trans.get();
+	//	
+	//	assertEquals(transTeste.getCartao().getNumero(), assertTrans.get(0).getCartao().getNumero());
+	//}
 }
